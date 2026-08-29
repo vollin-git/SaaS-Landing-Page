@@ -1,5 +1,84 @@
 @import "tailwindcss";
 
-body {
-  font-family: 'Inter', sans-serif;
+/* ---------------------------------------------------------------------------
+   Design tokens — extracted from Figma "Landing Page" (3OPg8kyaSzA3Dv6VyEjSlg).
+   Every value here is lifted from the file; components reference these tokens
+   rather than hard-coded hex / px so both screens stay in sync.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Gilroy is a commercial typeface and is not bundled. Plus Jakarta Sans is
+     the closest freely-licensed match and loads from Google Fonts; drop Gilroy
+     web fonts into src/assets/fonts and it takes over automatically. */
+  --font-sans: "Gilroy", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-numeric: "Rubik", ui-sans-serif, system-ui, sans-serif;
+
+  /* Palette */
+  --color-brand: #473bf0;
+  --color-ink: #161c2d;
+  --color-mist: #f4f7fa;
+  --color-cloud: #ecf2f7;
+  --color-hairline: #e7e9ed;
+  --color-logo: #7d818d;
+  --color-mint: #68d585;
+  --color-shade: #94a2b6;
+
+  /* Type scale */
+  --text-display: 60px;
+  --text-display--line-height: 65px;
+  --text-display--letter-spacing: -2px;
+
+  --text-h2: 36px;
+  --text-h2--line-height: 48px;
+  --text-h2--letter-spacing: -1.2px;
+
+  --text-h3: 24px;
+  --text-h3--line-height: 34px;
+  --text-h3--letter-spacing: -0.5px;
+
+  --text-h4: 21px;
+  --text-h4--line-height: 32px;
+  --text-h4--letter-spacing: -0.5px;
+
+  --text-lead: 19px;
+  --text-lead--line-height: 32px;
+  --text-lead--letter-spacing: -0.2px;
+
+  --text-body: 17px;
+  --text-body--line-height: 29px;
+  --text-body--letter-spacing: -0.2px;
+
+  --text-small: 15px;
+  --text-small--line-height: 26px;
+  --text-small--letter-spacing: -0.1px;
+
+  --text-eyebrow: 13px;
+  --text-eyebrow--line-height: normal;
+  --text-eyebrow--letter-spacing: 1.625px;
+
+  --text-cta: 17px;
+  --text-cta--line-height: 32px;
+  --text-cta--letter-spacing: -0.6px;
+
+  --text-quote: 104px;
+  --text-quote--line-height: 103px;
+  --text-quote--letter-spacing: -1.4444px;
+
+  /* Radii */
+  --radius-control: 8px;
+  --radius-card: 10px;
+  --radius-pill: 14.5px;
+
+  /* Elevation */
+  --shadow-card: 0 42px 44px -10px rgb(1 23 48 / 0.12);
+  --shadow-soft: 0 31px 34px -20px rgb(0 0 0 / 0.09);
+
+  /* The Figma artboard is 2144px wide with 328px gutters. */
+  --container-page: 1488px;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
 }

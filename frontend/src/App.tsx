@@ -1,18 +1,7 @@
-import { useState } from 'react'
-
-import './App.css'
+import { LandingPage } from '@/pages/LandingPage'
 
 function App() {
- 
-
-  return (
-    <div>
-      <h1 className="text-3xl font-bold underline text-center">
-        Welcome back
-      </h1>
-    </div>
-      
-  )
+  return <LandingPage />
 }
 
 export default App
