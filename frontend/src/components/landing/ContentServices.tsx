@@ -3,7 +3,8 @@ import topRight from '@/assets/images/content-03-tr.png'
 import bottomLeft from '@/assets/images/content-03-bl.png'
 import bottomRight from '@/assets/images/content-03-br.png'
 
-import { Container } from '@/components/ui/Container'
+import { Section } from '@/components/ui/Section'
+import { SplitSection } from '@/components/sections/SplitSection'
 import { ContentCopy } from './ContentCopy'
 import { contentSections } from '@/data/landing'
 
@@ -17,9 +18,11 @@ const TILES = [
 
 export function ContentServices() {
   return (
-    <section className="bg-white pb-[197px]">
-      <Container>
-        <div className="grid items-center gap-16 xl:grid-cols-[minmax(0,601px)_minmax(0,549px)] xl:justify-between xl:gap-[204px]">
+    <Section className="pb-20 sm:pb-[197px]">
+      <SplitSection
+        columns="minmax(0,601px) minmax(0,549px)"
+        gap="204px"
+        media={
           <div className="relative w-full" style={{ aspectRatio: '601.284 / 775.655' }}>
             {TILES.map((tile, index) => (
               <img
@@ -32,10 +35,9 @@ export function ContentServices() {
               />
             ))}
           </div>
-
-          <ContentCopy {...contentSections.services} className="max-w-[549px]" />
-        </div>
-      </Container>
-    </section>
+        }
+        copy={<ContentCopy {...contentSections.services} className="max-w-[549px]" />}
+      />
+    </Section>
   )
 }

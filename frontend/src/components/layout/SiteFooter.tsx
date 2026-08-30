@@ -9,7 +9,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-ink text-white">
       <Container>
-        <div className="flex flex-wrap justify-between gap-x-10 gap-y-12 pb-16 pt-[184px]">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 pb-16 pt-16 sm:grid-cols-3 sm:pt-24 lg:flex lg:flex-wrap lg:justify-between lg:gap-x-10 lg:gap-y-12 lg:pt-[184px]">
           {footerColumns.map((column) => (
             <div key={column.heading}>
               <p className="text-small text-white opacity-65">{column.heading}</p>
@@ -29,9 +29,9 @@ export function SiteFooter() {
         <img src={rule} alt="" aria-hidden="true" className="h-px w-full" />
 
         <div className="flex flex-wrap items-center justify-between gap-6 py-8">
-          <p className="flex items-center gap-2 text-small text-white opacity-65">
+          <p className="max-w-full text-small text-white opacity-65">
             {copyright}
-            <img src={heart} alt="love" className="h-[15px] w-[17px] max-w-none" />
+            <img src={heart} alt="love" className="ml-2 inline-block h-[15px] w-[17px] max-w-none align-middle" />
           </p>
 
           <ul className="flex items-center gap-6">

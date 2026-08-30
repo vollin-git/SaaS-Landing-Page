@@ -8,7 +8,7 @@ import { pricing } from '@/data/landing'
  */
 export function BillingToggle({ yearly, onChange }: { yearly: boolean; onChange: (yearly: boolean) => void }) {
   return (
-    <div className="flex items-center justify-center gap-6">
+    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:gap-x-6">
       <span className="text-lead text-ink">{pricing.toggle.monthly}</span>
 
       <button

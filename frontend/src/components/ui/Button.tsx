@@ -4,21 +4,26 @@ import { cn } from '@/lib/cn'
 
 /**
  * Maps onto the Figma button set:
- *   solid → Button/Solid/Style 02 & 06   (filled brand)
- *   soft  → Button/Solid/Style 01        (brand @ 8% wash)
- *   link  → Button/Solid/Style 03 & 04   (text + tail-right, brand or mint)
+ *   solid → Button/Solid/Style 02, 04 & 06   (filled brand)
+ *   soft  → Button/Solid/Style 01            (brand @ 8% wash)
+ *   link  → Button/Solid/Style 03 & 04       (text + tail-right, brand or mint)
  */
 type Variant = 'solid' | 'soft' | 'link'
 type Tone = 'brand' | 'mint'
 type Size = 'md' | 'lg'
 
-type ButtonProps = ComponentPropsWithoutRef<'a'> & {
+type SharedProps = {
   variant?: Variant
   tone?: Tone
   size?: Size
   withArrow?: boolean
+  className?: string
   children: ReactNode
 }
+
+type ButtonProps =
+  | (SharedProps & { as?: 'a' } & Omit<ComponentPropsWithoutRef<'a'>, keyof SharedProps>)
+  | (SharedProps & { as: 'button' } & Omit<ComponentPropsWithoutRef<'button'>, keyof SharedProps>)
 
 const SIZES: Record<Size, string> = {
   md: 'h-14 px-5',
@@ -30,33 +35,38 @@ export function Button({
   tone = 'brand',
   size = 'md',
   withArrow = variant !== 'solid',
+  as = 'a',
   className,
   children,
-  href = '#',
   ...props
 }: ButtonProps) {
-  const arrowTone: ArrowTone = variant === 'solid' ? 'white' : variant === 'soft' ? 'brandLg' : tone === 'mint' ? 'mint' : 'brand'
+  const arrowTone: ArrowTone =
+    variant === 'solid' ? 'white' : variant === 'soft' ? 'brandLg' : tone === 'mint' ? 'mint' : 'brand'
+
+  const Tag = as as 'a' | 'button'
+  const linkProps = as === 'a' ? { href: (props as ComponentPropsWithoutRef<'a'>).href ?? '#' } : {}
 
   if (variant === 'link') {
     return (
-      <a
-        href={href}
+      <Tag
+        {...(props as Record<string, unknown>)}
+        {...linkProps}
         className={cn(
           'group inline-flex items-center gap-3 text-h4 font-bold tracking-[-1.2px]',
           tone === 'mint' ? 'text-mint' : 'text-brand',
           className,
         )}
-        {...props}
       >
         {children}
         <ArrowRight tone={arrowTone} />
-      </a>
+      </Tag>
     )
   }
 
   return (
-    <a
-      href={href}
+    <Tag
+      {...(props as Record<string, unknown>)}
+      {...linkProps}
       className={cn(
         'group relative inline-flex items-center justify-between gap-6 rounded-control text-cta font-bold transition-colors',
         SIZES[size],
@@ -64,13 +74,15 @@ export function Button({
         !withArrow && 'justify-center',
         className,
       )}
-      {...props}
     >
       {variant === 'soft' && (
-        <span className="absolute inset-0 rounded-control bg-brand opacity-[0.08] transition-opacity group-hover:opacity-[0.14]" aria-hidden="true" />
+        <span
+          className="absolute inset-0 rounded-control bg-brand opacity-[0.08] transition-opacity group-hover:opacity-[0.14]"
+          aria-hidden="true"
+        />
       )}
       <span className="relative whitespace-nowrap">{children}</span>
       {withArrow && <ArrowRight tone={arrowTone} className="relative" />}
-    </a>
+    </Tag>
   )
 }

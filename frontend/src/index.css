@@ -71,6 +71,7 @@
   /* Elevation */
   --shadow-card: 0 42px 44px -10px rgb(1 23 48 / 0.12);
   --shadow-soft: 0 31px 34px -20px rgb(0 0 0 / 0.09);
+  --shadow-form: 0 34px 33px -23px rgb(22 28 45 / 0.13);
 
   /* The Figma artboard is 2144px wide with 328px gutters. */
   --container-page: 1488px;

@@ -26,7 +26,7 @@ export const navLinks = [
   { label: 'Demos', href: '#demos' },
   { label: 'Pages', href: '#pages' },
   { label: 'Support', href: '#support' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export const hero = {

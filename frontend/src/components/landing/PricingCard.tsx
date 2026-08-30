@@ -5,7 +5,7 @@ import { pricing, type Plan } from '@/data/landing'
 /** Figma: pricing card (1:1009 / 1:1022 / 1:1035). */
 export function PricingCard({ plan, price, cadence }: { plan: Plan; price: string; cadence: string }) {
   return (
-    <div className="flex w-full max-w-[467px] flex-col rounded-card border border-hairline bg-white px-[66px] pb-[74px] pt-[80px] xl:pt-[193px]">
+    <div className="flex w-full min-w-0 max-w-[467px] flex-col rounded-card border border-hairline bg-white px-6 pb-12 pt-12 sm:px-[66px] sm:pb-[74px] sm:pt-[80px] xl:pt-[193px]">
       <p className="text-eyebrow font-bold uppercase text-brand">{plan.name}</p>
 
       <p className="mt-10 font-bold tracking-[-0.8px] text-ink">
