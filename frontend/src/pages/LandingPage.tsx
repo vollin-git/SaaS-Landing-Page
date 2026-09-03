@@ -7,6 +7,7 @@ import { ContentTrack } from '@/components/landing/ContentTrack'
 import { ContentVisitors } from '@/components/landing/ContentVisitors'
 import { ContentServices } from '@/components/landing/ContentServices'
 import { Pricing } from '@/components/landing/Pricing'
+import { CallToAction } from '@/components/landing/CallToAction'
 
 export function LandingPage() {
   return (
@@ -24,6 +25,7 @@ export function LandingPage() {
         <ContentVisitors />
         <ContentServices />
         <Pricing />
+        <CallToAction />
       </main>
 
       <SiteFooter />

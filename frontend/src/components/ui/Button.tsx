@@ -7,8 +7,12 @@ import { cn } from '@/lib/cn'
  *   solid → Button/Solid/Style 02, 04 & 06   (filled brand)
  *   soft  → Button/Solid/Style 01            (brand @ 8% wash)
  *   link  → Button/Solid/Style 03 & 04       (text + tail-right, brand or mint)
+ *
+ * `inverse` has no Figma counterpart — the file has no button on a brand
+ * ground, where the filled brand style would disappear. It flips solid: white
+ * fill, brand label, brand arrow.
  */
-type Variant = 'solid' | 'soft' | 'link'
+type Variant = 'solid' | 'soft' | 'link' | 'inverse'
 type Tone = 'brand' | 'mint'
 type Size = 'md' | 'lg'
 
@@ -41,7 +45,13 @@ export function Button({
   ...props
 }: ButtonProps) {
   const arrowTone: ArrowTone =
-    variant === 'solid' ? 'white' : variant === 'soft' ? 'brandLg' : tone === 'mint' ? 'mint' : 'brand'
+    variant === 'solid'
+      ? 'white'
+      : variant === 'soft' || variant === 'inverse'
+        ? 'brandLg'
+        : tone === 'mint'
+          ? 'mint'
+          : 'brand'
 
   const Tag = as as 'a' | 'button'
   const linkProps = as === 'a' ? { href: (props as ComponentPropsWithoutRef<'a'>).href ?? '#' } : {}
@@ -70,7 +80,9 @@ export function Button({
       className={cn(
         'group relative inline-flex items-center justify-between gap-6 rounded-control text-cta font-bold transition-colors',
         SIZES[size],
-        variant === 'solid' ? 'bg-brand text-white hover:bg-brand/90' : 'text-brand',
+        variant === 'solid' && 'bg-brand text-white hover:bg-brand/90',
+        variant === 'inverse' && 'bg-white text-brand hover:bg-white/90',
+        variant === 'soft' && 'text-brand',
         !withArrow && 'justify-center',
         className,
       )}

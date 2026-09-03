@@ -17,14 +17,20 @@ const DOTS = [dotsTopLeft, dotsTopRight, dotsBottomLeft, dotsBottomRight]
 export function Hero() {
   return (
     <Section tone="ink" className="relative overflow-hidden" containerClassName="relative">
-      <div className="grid items-start gap-16 pb-20 pt-[120px] sm:pt-[180px] xl:grid-cols-[724px_minmax(0,1fr)] xl:gap-[39px] xl:pb-[277px] xl:pt-[311px]">
+      {/*
+        Figma draws both columns at 724px inside a 1488px container. Equal
+        fractions reproduce that at the design width and scale down cleanly
+        below it — a fixed 724px media column would overflow its track and get
+        clipped by the section's overflow-hidden on any viewport under ~1530px.
+      */}
+      <div className="grid items-center gap-16 pb-20 pt-[120px] sm:pt-[180px] xl:grid-cols-2 xl:gap-[39px] xl:pb-[130px] xl:pt-[190px]">
         <Heading
           as="h1"
           size="display"
           tone="white"
           title={hero.title}
           body={hero.body}
-          className="max-w-[724px] xl:mt-[50px]"
+          className="max-w-[724px]"
           bodyClassName="max-w-[670px]"
         >
           <Button variant="link" tone="mint" className="mt-10">
@@ -43,7 +49,7 @@ export function Hero() {
             ))}
           </div>
 
-          <div className="relative aspect-[724/581] w-full overflow-hidden rounded-control shadow-soft xl:h-[581.362px] xl:w-[724.487px]">
+          <div className="relative ml-auto aspect-[724/581] w-full max-w-[724.487px] overflow-hidden rounded-control shadow-soft">
             <img src={heroVideo} alt="" className="absolute inset-0 h-full w-full object-cover" />
             <span
               aria-hidden="true"
@@ -57,12 +63,13 @@ export function Hero() {
                 WebkitMaskRepeat: 'no-repeat',
               }}
             />
+            {/* 17% of the card width is the Figma ratio (123.203 / 724.487). */}
             <button
               type="button"
               aria-label="Play product video"
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-105"
+              className="absolute left-1/2 top-1/2 w-[17%] min-w-[56px] max-w-[123.203px] -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-105"
             >
-              <img src={playButton} alt="" className="h-[79px] w-[70px] max-w-none sm:h-[105px] sm:w-[93px] xl:h-[139.648px] xl:w-[123.203px]" />
+              <img src={playButton} alt="" className="h-auto w-full max-w-none" />
             </button>
           </div>
         </div>

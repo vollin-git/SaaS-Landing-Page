@@ -139,6 +139,13 @@ export const testimonials = [
   },
 ]
 
+/** No Figma counterpart — composed to close the page before the footer. */
+export const callToAction = {
+  title: 'Ready to get more visitors?',
+  body: 'Start your free trial today. No credit card required, and you can cancel any time.',
+  cta: 'Start a free trial',
+}
+
 export const footerColumns = [
   {
     heading: 'Company',

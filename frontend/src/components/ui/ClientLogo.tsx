@@ -3,9 +3,10 @@
  * with a #7d818d fill masked to the same shape sitting on top. That pair is what
  * produces the desaturated grey treatment, so both layers are reproduced here.
  *
- * The box is fluid — it caps at the Figma width but shrinks on narrow screens,
- * with aspect-ratio holding the proportions and a percentage mask-size so the
- * tint layer tracks the box instead of drifting out of register.
+ * Logos render at their Figma width; on small screens LogoCloud scrolls them in
+ * a rail rather than shrinking them, since a squeezed wordmark reads as broken.
+ * aspect-ratio holds the proportions and the percentage mask-size keeps the tint
+ * layer in register with the box at any size.
  */
 export function ClientLogo({
   name,
@@ -22,7 +23,7 @@ export function ClientLogo({
 }) {
   return (
     <div
-      className="relative w-full max-w-[38%] sm:max-w-[28%] lg:max-w-none"
+      className="relative shrink-0"
       style={{ width, aspectRatio: `${width} / ${height}` }}
     >
       <img src={src} alt={name} className="absolute inset-0 h-full w-full max-w-none opacity-80" />

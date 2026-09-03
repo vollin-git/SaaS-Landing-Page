@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Section } from '@/components/ui/Section'
+import { CardRail } from '@/components/ui/CardRail'
 import { Heading } from '@/components/ui/Heading'
 import { BillingToggle } from './BillingToggle'
 import { PricingCard } from './PricingCard'
@@ -21,14 +22,18 @@ export function Pricing() {
         title={pricing.title}
         body={pricing.body}
         className="mx-auto max-w-[1030px]"
-        bodyClassName="max-w-[810px]"
+        bodyGap="mt-[18px]"
+        bodyClassName="max-w-[789px]"
       />
 
       <div className="mt-10 sm:mt-[76px]">
         <BillingToggle yearly={yearly} onChange={setYearly} />
       </div>
 
-      <div className="mt-14 grid justify-items-center gap-[42px] sm:mt-[128px] md:grid-cols-2 xl:grid-cols-3">
+      <CardRail
+        className="mt-14 sm:mt-[76px] md:mx-0 md:grid md:grid-cols-2 md:justify-items-center md:gap-[42px] md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-3"
+        itemClassName="flex w-[85%] max-w-[467px] md:w-full md:max-w-none"
+      >
         {plans.map((plan) => (
           <PricingCard
             key={plan.name}
@@ -37,9 +42,9 @@ export function Pricing() {
             cadence={yearly ? 'billed yearly' : plan.cadence}
           />
         ))}
-      </div>
+      </CardRail>
 
-      <div className="mt-20 sm:mt-[163px]">
+      <div className="mt-20 sm:mt-[120px]">
         <Testimonials />
       </div>
     </Section>

@@ -21,7 +21,7 @@ export function PlanFeature({ label, included }: { label: string; included: bool
           </>
         )}
       </span>
-      <span className={cn('text-body text-ink', !included && 'opacity-70')}>{label}</span>
+      <span className={cn('text-small text-ink sm:text-body', !included && 'opacity-70')}>{label}</span>
     </li>
   )
 }

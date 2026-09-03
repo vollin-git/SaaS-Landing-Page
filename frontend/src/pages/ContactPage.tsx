@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { Section } from '@/components/ui/Section'
@@ -9,7 +11,7 @@ import { ContactMap } from '@/components/contact/ContactMap'
 
 export function ContactPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" style={{ '--container-w': 'var(--container-narrow)' } as CSSProperties}>
       <SiteHeader variant="solid" />
 
       <main>

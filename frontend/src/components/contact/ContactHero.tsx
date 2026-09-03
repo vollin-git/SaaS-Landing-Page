@@ -5,7 +5,7 @@ import { contactHero } from '@/data/contact'
 /** Figma: Hero (5:1771) — centred title and lead, on the white page ground. */
 export function ContactHero() {
   return (
-    <Section className="pt-12 sm:pt-[97px]">
+    <Section className="pt-10 sm:pt-[73px]">
       <Heading
         as="h1"
         size="display"

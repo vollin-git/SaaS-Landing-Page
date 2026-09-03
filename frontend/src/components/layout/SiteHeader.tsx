@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import divider from '@/assets/icons/rule-vertical.svg'
 
@@ -33,11 +33,27 @@ function NavItem({ href, className, children }: { href: string; className?: stri
 export function SiteHeader({ variant = 'overlay' }: { variant?: 'overlay' | 'solid' }) {
   const overlay = variant === 'overlay'
   const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
+  // On an auth page the header offers the *other* action — otherwise the CTA
+  // navigates to the page you are already on and appears to do nothing.
+  const onAuthPage = pathname === '/signin' || pathname === '/signup'
+  const authCta = pathname === '/signup' ? { label: 'Sign In', to: '/signin' } : { label: 'Sign Up', to: '/signup' }
 
   return (
-    <header className={cn(overlay ? 'absolute inset-x-0 top-6 z-20' : 'relative bg-white pt-16 sm:pt-[130px]')}>
+    <header
+      className={cn(
+        overlay ? 'absolute inset-x-0 top-6 z-20' : 'relative bg-white pt-6',
+        // The auth pages sit on the cloud ground, so the white header needs
+        // padding below the row to read as a full band rather than stopping
+        // flush against the nav. Contact is white throughout and must keep its
+        // Figma rhythm, so it is left alone.
+        !overlay && onAuthPage && 'pb-6',
+      )}
+    >
       <Container>
-        <div className={cn('flex items-center justify-between gap-4', overlay ? 'h-[76px]' : 'h-[50px]')}>
+        <div className={cn('flex items-center justify-between gap-4', overlay ? 'h-[64px]' : 'h-[50px]')}>
           <Link
             to="/"
             className={cn(
@@ -68,17 +84,36 @@ export function SiteHeader({ variant = 'overlay' }: { variant?: 'overlay' | 'sol
 
           {/* Desktop actions */}
           {overlay ? (
-            <Button variant="solid" size="lg" className="ml-8 hidden lg:inline-flex">
+            <Button variant="solid" className="ml-8 hidden h-[56px] px-7 lg:inline-flex">
               Start a free trial
             </Button>
           ) : (
-            <div className="ml-12 hidden items-center gap-8 lg:flex">
-              <a href="#" className="text-small font-bold text-ink transition-colors hover:text-brand">
-                Sign In
-              </a>
-              <img src={divider} alt="" aria-hidden="true" className="h-[21px] w-px" />
-              <Button variant="solid" className="h-[50px] w-[124px] px-0">
-                Sign Up
+            <div
+              className={cn(
+                'hidden items-center gap-8 lg:flex',
+                // With the Sign In link and divider gone on auth pages the CTA
+                // would sit one nav-gap from "Contact" and read as another nav
+                // item, so it gets extra separation when it stands alone.
+                onAuthPage ? 'ml-20' : 'ml-12',
+              )}
+            >
+              {!onAuthPage && (
+                <>
+                  <Link to="/signin" className="text-small font-bold text-ink transition-colors hover:text-brand">
+                    Sign In
+                  </Link>
+                  <img src={divider} alt="" aria-hidden="true" className="h-[21px] w-px" />
+                </>
+              )}
+              {/* Button renders an <a>; navigate() keeps it client-side without
+                  nesting an anchor inside a router Link. */}
+              <Button
+                as="button"
+                onClick={() => navigate(authCta.to)}
+                variant="solid"
+                className="h-[50px] w-[124px] px-0"
+              >
+                {authCta.label}
               </Button>
             </div>
           )}
@@ -127,13 +162,18 @@ export function SiteHeader({ variant = 'overlay' }: { variant?: 'overlay' | 'sol
           </ul>
 
           <div className="mt-4 flex flex-col gap-3 border-t border-hairline pt-5">
-            {!overlay && (
-              <a href="#" className="text-body font-bold text-ink transition-colors hover:text-brand">
+            {!overlay && !onAuthPage && (
+              <Link to="/signin" className="text-body font-bold text-ink transition-colors hover:text-brand">
                 Sign In
-              </a>
+              </Link>
             )}
-            <Button variant="solid" className="w-full">
-              {overlay ? 'Start a free trial' : 'Sign Up'}
+            <Button
+              as={overlay ? 'a' : 'button'}
+              onClick={overlay ? undefined : () => navigate(authCta.to)}
+              variant="solid"
+              className="w-full"
+            >
+              {overlay ? 'Start a free trial' : authCta.label}
             </Button>
           </div>
         </div>

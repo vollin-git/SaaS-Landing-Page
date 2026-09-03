@@ -1,5 +1,5 @@
 {
-  "name": "react-ts",
+  "name": "brainwave-landing",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,7 +12,6 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "autoprefixer": "^10.5.4",
-    "D": "^1.0.0",
     "lucide-react": "^1.37.0",
     "postcss": "^8.5.26",
     "react": "^19.2.8",

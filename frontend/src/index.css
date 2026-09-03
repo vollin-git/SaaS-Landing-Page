@@ -75,11 +75,30 @@
 
   /* The Figma artboard is 2144px wide with 328px gutters. */
   --container-page: 1488px;
+  /* The contact artboard is a 1600px frame with a 1110px column, narrower than
+     the landing frame's 1488px. Pages opt in via --container-w. */
+  --container-narrow: 1110px;
 }
 
 @layer base {
+  :root {
+    /* Default content column; a page can override this on its root element and
+       every Container inside it — header, sections, footer — follows. */
+    --container-w: var(--container-page);
+  }
+
   body {
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Hides the scrollbar on the mobile card rails. The peeking next card plus
+   scroll-snap already signal that the row scrolls, so the bar is redundant
+   and visually noisy at that size. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }

@@ -1,0 +1,27 @@
+# Netlify build configuration.
+# The app lives in frontend/, so `base` moves Netlify there before installing;
+# `publish` is then resolved relative to it (frontend/dist).
+
+[build]
+  base    = "frontend"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Pin the major so a Netlify image upgrade can't silently change the runtime.
+  NODE_VERSION = "22"
+
+# React Router owns /contact, /signin and /signup — they have no file on disk,
+# so a direct hit or refresh would 404 without this. Netlify matches real files
+# first, so this only catches paths that would otherwise miss.
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# Vite fingerprints every filename under /assets, so they are safe to cache
+# forever; index.html stays uncached and picks up new hashes on each deploy.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

@@ -2,11 +2,12 @@ import type { ReactNode } from 'react'
 import { Container } from './Container'
 import { cn } from '@/lib/cn'
 
-type Tone = 'white' | 'cloud' | 'ink'
+type Tone = 'white' | 'cloud' | 'brand' | 'ink'
 
 const TONES: Record<Tone, string> = {
   white: 'bg-white',
   cloud: 'bg-cloud',
+  brand: 'bg-brand',
   ink: 'bg-ink',
 }
 
